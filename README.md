@@ -4,6 +4,11 @@ A high-performance image gallery leveraging modern Web APIs for optimal user exp
 
 ![Gallery Screenshot](./screenshots/gallery-demo.gif) <!-- Add your screenshot path -->
 <img width="1438" height="913" alt="image" src="https://github.com/user-attachments/assets/e7acb8aa-24dd-4886-bcff-cb5a57a985be" />
+<img width="1458" height="923" alt="image" src="https://github.com/user-attachments/assets/88faa0e3-7423-4707-87de-f724370ae434" />
+<img width="1814" height="907" alt="image" src="https://github.com/user-attachments/assets/373d2353-73d0-4ea1-b1b8-281090c56225" />
+<img width="1569" height="729" alt="image" src="https://github.com/user-attachments/assets/8b35b29f-620b-4560-a2da-ffd6e69c44a0" />
+<img width="1919" height="970" alt="image" src="https://github.com/user-attachments/assets/a16fea7d-d344-41f0-b21d-b8ed372b18e1" />
+
 
 
 
