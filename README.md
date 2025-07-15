@@ -28,3 +28,12 @@ A high-performance image gallery leveraging modern Web APIs for optimal user exp
 1. Clone the repository
    ```bash
    git clone https://github.com/yourusername/smart-image-gallery.git
+
+2. Install dependencies
+   ```bash
+   npm install
+
+3. development server
+   ```bash
+   npm run dev
+
