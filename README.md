@@ -4,6 +4,36 @@ A high-performance image gallery leveraging modern Web APIs for optimal user exp
 
 ![Gallery Screenshot](./screenshots/gallery-demo.gif) <!-- Add your screenshot path -->
 
+
+## 🛠️ Tech Stack
+
+### Core Framework
+- **React** (v18+) with TypeScript
+- **Vite** (Build tool)
+
+### State Management
+- **Zustand** (Lightweight state management)
+
+### Styling
+- **CSS Modules** with SCSS preprocessing
+- **PostCSS** for modern CSS features
+- **Framer Motion** for animations
+
+### Web APIs
+- **Network Information API**
+- **Intersection Observer API**
+- **Canvas API**
+- **Background Tasks API** (requestIdleCallback)
+
+### Utilities
+- **Axios** (HTTP client)
+- **date-fns** (Date formatting)
+- **Lodash** (Utility functions)
+
+### Testing
+- **Vitest** (Unit testing)
+- **React Testing Library**
+
 ## 🌟 Features
 
 - **Real-time network adaptation** (Network Information API)
