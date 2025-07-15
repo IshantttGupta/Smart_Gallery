@@ -15,6 +15,11 @@ https://chic-ganache-b9515e.netlify.app/
 Here, we can see that all API's working properly.
 
 
+## Additional Features 
+I connect the Netlift DB for temporary period of time.
+
+<img width="1901" height="971" alt="image" src="https://github.com/user-attachments/assets/1db6a8da-2cdb-45b7-92d2-4c79b5e40eb2" />
+
 
 ## 🛠️ Tech Stack
 
