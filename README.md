@@ -9,6 +9,7 @@ A high-performance image gallery leveraging modern Web APIs for optimal user exp
 <img width="1569" height="729" alt="image" src="https://github.com/user-attachments/assets/8b35b29f-620b-4560-a2da-ffd6e69c44a0" />
 <img width="1919" height="970" alt="image" src="https://github.com/user-attachments/assets/a16fea7d-d344-41f0-b21d-b8ed372b18e1" />
 
+Here, we can see that all API's working properly.
 
 
 
@@ -37,9 +38,8 @@ A high-performance image gallery leveraging modern Web APIs for optimal user exp
 - **date-fns** (Date formatting)
 - **Lodash** (Utility functions)
 
-### Testing
-- **Vitest** (Unit testing)
-- **React Testing Library**
+### Deployment
+- **Netlify**
 
 ## 🌟 Features
 
