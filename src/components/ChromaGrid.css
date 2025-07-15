@@ -1,0 +1,162 @@
+.chroma-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--cols), 1fr);
+  grid-template-rows: repeat(var(--rows), 1fr);
+  gap: 1.5rem;
+  width: 100%;
+  height: 600px;
+  padding: 2rem;
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+  --x: 0px;
+  --y: 0px;
+}
+
+.chroma-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  --mouse-x: 0px;
+  --mouse-y: 0px;
+}
+
+.chroma-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    200px circle at var(--mouse-x) var(--mouse-y),
+    var(--card-border, rgba(255, 255, 255, 0.1)),
+    transparent 40%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+.chroma-card:hover::before {
+  opacity: 0.3;
+}
+
+.chroma-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--card-border, rgba(255, 255, 255, 0.2));
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.chroma-img-wrapper {
+  position: relative;
+  width: 100%;
+  height: 60%;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.chroma-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.chroma-card:hover .chroma-img-wrapper img {
+  transform: scale(1.05);
+}
+
+.chroma-info {
+  position: relative;
+  padding: 1rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 2;
+}
+
+.chroma-info .name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 0 0 0.25rem 0;
+}
+
+.chroma-info .handle {
+  font-size: 0.8rem;
+  color: #888;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+}
+
+.chroma-info .role {
+  font-size: 0.9rem;
+  color: #ccc;
+  margin: 0.25rem 0 0 0;
+}
+
+.chroma-info .location {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 0.5rem;
+}
+
+.chroma-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    var(--r) circle at var(--x) var(--y),
+    rgba(255, 255, 255, 0.05),
+    transparent 50%
+  );
+  pointer-events: none;
+  z-index: 3;
+}
+
+.chroma-fade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+  z-index: 4;
+  transition: opacity 0.6s ease;
+}
+
+@media (max-width: 768px) {
+  .chroma-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 1rem;
+    padding: 1rem;
+    height: 500px;
+  }
+  
+  .chroma-info .name {
+    font-size: 1rem;
+  }
+  
+  .chroma-info .role {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .chroma-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(6, 1fr);
+    height: 800px;
+  }
+}
