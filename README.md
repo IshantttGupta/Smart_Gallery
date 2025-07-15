@@ -1,4 +1,4 @@
-# Smart Image Gallery 🖼️⚡
+# Smart Image Gallery - TAP Frontend developer Assignment
 
 A high-performance image gallery leveraging modern Web APIs for optimal user experience. Inspired by Vercel's design system with a sleek black theme.
 
