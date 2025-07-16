@@ -3,7 +3,7 @@
 A high-performance image gallery leveraging modern Web APIs for optimal user experience. Inspired by Vercel's design system with a sleek black theme.
 
 # Deployed link
-https://chic-ganache-b9515e.netlify.app/
+[https://chic-ganache-b9515e.netlify.app/](https://chic-ganache-b9515e.netlify.app/)
 
 ![Gallery Screenshot](./screenshots/gallery-demo.gif) <!-- Add your screenshot path -->
 <img width="1438" height="913" alt="image" src="https://github.com/user-attachments/assets/e7acb8aa-24dd-4886-bcff-cb5a57a985be" />
