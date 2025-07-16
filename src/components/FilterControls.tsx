@@ -17,7 +17,7 @@ const filters = [
 
 const FilterControls: React.FC<FilterControlsProps> = ({ currentFilter, onFilterChange }) => {
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
       <div className="flex items-center gap-2 text-sm text-zinc-400">
         <Palette className="w-4 h-4" />
         <span>Filters:</span>
@@ -46,7 +46,7 @@ const FilterControls: React.FC<FilterControlsProps> = ({ currentFilter, onFilter
           className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-zinc-400 hover:text-zinc-300 transition-colors border border-zinc-700 rounded-md hover:border-zinc-600"
         >
           <RotateCcw className="w-3.5 h-3.5" />
-          <span>Reset</span>
+          <span className="hidden sm:inline">Reset</span>
         </button>
       )}
     </div>

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Loader2, Eye, Download, Palette, Activity, Wifi } from 'lucide-react';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import { useBackgroundTasks } from '../hooks/useBackgroundTasks';
+import { gsap } from 'gsap';
 import ImageCard from './ImageCard';
 
 interface ImageGalleryProps {
@@ -41,6 +42,8 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ filter, networkInfo, viewMo
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const loadMoreRef = useRef<HTMLDivElement>(null);
+  const galleryRef = useRef<HTMLDivElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
   
   // ⚡ BACKGROUND TASKS API - Add tasks for image processing
   const { addTask } = useBackgroundTasks();
@@ -53,6 +56,41 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ filter, networkInfo, viewMo
       threshold: 0.1
     }
   });
+
+  // Chroma effect setup
+  useEffect(() => {
+    const gallery = galleryRef.current;
+    const overlay = overlayRef.current;
+    if (!gallery || !overlay) return;
+
+    let mouseX = 0;
+    let mouseY = 0;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = gallery.getBoundingClientRect();
+      mouseX = e.clientX - rect.left;
+      mouseY = e.clientY - rect.top;
+      
+      // Update CSS custom properties for chroma effect
+      gallery.style.setProperty('--mouse-x', `${mouseX}px`);
+      gallery.style.setProperty('--mouse-y', `${mouseY}px`);
+      
+      // Animate overlay opacity
+      gsap.to(overlay, { opacity: 0.1, duration: 0.3 });
+    };
+
+    const handleMouseLeave = () => {
+      gsap.to(overlay, { opacity: 0, duration: 0.6 });
+    };
+
+    gallery.addEventListener('mousemove', handleMouseMove);
+    gallery.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      gallery.removeEventListener('mousemove', handleMouseMove);
+      gallery.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, []);
 
   // Load more images when intersection is detected
   useEffect(() => {
@@ -121,16 +159,16 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ filter, networkInfo, viewMo
 
   const getGridClasses = () => {
     if (viewMode === 'list') {
-      return 'space-y-4';
+      return 'space-y-3 sm:space-y-4';
     }
-    return 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4';
+    return 'grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4';
   };
 
   return (
-    <div className="space-y-6">
-      {/* Simple Stats */}
-      <div className="flex items-center justify-between text-sm text-zinc-500 border-b border-zinc-800/30 pb-3">
-        <div className="flex items-center gap-6">
+    <div className="space-y-4 sm:space-y-6">
+      {/* Mobile-Optimized Stats */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-sm text-zinc-500 border-b border-zinc-800/30 pb-3">
+        <div className="flex items-center gap-4 sm:gap-6">
           <span>{images.length} photos</span>
           <span>{visibleImages.length} loaded</span>
           <div className="flex items-center gap-1">
@@ -147,8 +185,24 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ filter, networkInfo, viewMo
         </div>
       </div>
 
-      {/* Image Grid/List */}
-      <div className={getGridClasses()}>
+      {/* Image Grid/List with Chroma Effect */}
+      <div 
+        ref={galleryRef}
+        className={`relative ${getGridClasses()}`}
+        style={{
+          '--mouse-x': '0px',
+          '--mouse-y': '0px'
+        } as React.CSSProperties}
+      >
+        {/* Chroma Overlay */}
+        <div 
+          ref={overlayRef}
+          className="fixed inset-0 pointer-events-none z-10 opacity-0"
+          style={{
+            background: `radial-gradient(300px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.05), transparent 50%)`
+          }}
+        />
+        
         {images.map((image) => (
           <ImageCard
             key={image.id}
@@ -162,7 +216,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ filter, networkInfo, viewMo
       </div>
 
       {/* 👁️ INTERSECTION OBSERVER API - Load more trigger */}
-      <div ref={loadMoreRef} className="py-8">
+      <div ref={loadMoreRef} className="py-6 sm:py-8">
         {loading && (
           <div className="flex items-center justify-center gap-2 text-zinc-500">
             <div className="w-4 h-4 border border-zinc-700 rounded-full animate-spin border-t-zinc-400"></div>

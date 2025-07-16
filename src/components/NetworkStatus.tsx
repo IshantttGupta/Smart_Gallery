@@ -53,8 +53,8 @@ const NetworkStatus: React.FC<NetworkStatusProps> = ({ networkInfo }) => {
   };
 
   return (
-    <div className="flex items-center gap-3 bg-zinc-900 border border-zinc-800 rounded-md px-3 py-1.5">
-      <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2 sm:gap-3 bg-zinc-900 border border-zinc-800 rounded-md px-2 sm:px-3 py-1.5">
+      <div className="flex items-center gap-1.5 sm:gap-2">
         {/* 🌐 NETWORK INFORMATION API - Display connection icon and status */}
         {getConnectionIcon()}
         <span className={`text-xs font-medium ${getConnectionColor()}`}>
@@ -62,9 +62,9 @@ const NetworkStatus: React.FC<NetworkStatusProps> = ({ networkInfo }) => {
         </span>
       </div>
       
-      {/* 🌐 NETWORK INFORMATION API - Show detailed network metrics */}
+      {/* 🌐 NETWORK INFORMATION API - Show detailed network metrics (hidden on mobile) */}
       {networkInfo.isOnline && (
-        <div className="flex items-center gap-3 text-xs text-zinc-500">
+        <div className="hidden sm:flex items-center gap-3 text-xs text-zinc-500">
           <div className="flex items-center gap-1">
             <Activity className="w-3 h-3" />
             <span className="font-mono">{networkInfo.downlink?.toFixed(1) || '0'}</span>
