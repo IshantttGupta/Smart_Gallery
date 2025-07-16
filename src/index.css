@@ -1,28 +1,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@keyframes pulse {
-  0%, 100% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 0.3;
-  }
-}
-
-@keyframes chromaShift {
-  0% {
-    filter: hue-rotate(0deg);
-  }
-  50% {
-    filter: hue-rotate(180deg);
-  }
-  100% {
-    filter: hue-rotate(360deg);
-  }
-}
-
-.chroma-enhanced {
-  animation: chromaShift 3s ease-in-out infinite;
-}

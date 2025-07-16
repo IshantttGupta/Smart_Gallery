@@ -3,7 +3,6 @@ import { Eye, Palette, Loader2, Download, Maximize2, Zap, Heart } from 'lucide-r
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import { useCanvas } from '../hooks/useCanvas';
 import { useBackgroundTasks } from '../hooks/useBackgroundTasks';
-import { gsap } from 'gsap';
 
 interface ImageCardProps {
   image: {
@@ -59,47 +58,6 @@ const ImageCard: React.FC<ImageCardProps> = ({ image, filter, quality, viewMode,
     }
   }, [loaded, filter, applyFilter]);
 
-  // Chroma effect on individual cards
-  useEffect(() => {
-    const card = cardRef.current;
-    if (!card) return;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      
-      card.style.setProperty('--card-mouse-x', `${x}px`);
-      card.style.setProperty('--card-mouse-y', `${y}px`);
-    };
-
-    const handleMouseEnter = () => {
-      gsap.to(card, { 
-        scale: 1.05, 
-        duration: 0.2, 
-        ease: 'power2.out' 
-      });
-    };
-
-    const handleMouseLeave = () => {
-      gsap.to(card, { 
-        scale: 1, 
-        duration: 0.4, 
-        ease: 'power2.out' 
-      });
-    };
-
-    card.addEventListener('mousemove', handleMouseMove);
-    card.addEventListener('mouseenter', handleMouseEnter);
-    card.addEventListener('mouseleave', handleMouseLeave);
-
-    return () => {
-      card.removeEventListener('mousemove', handleMouseMove);
-      card.removeEventListener('mouseenter', handleMouseEnter);
-      card.removeEventListener('mouseleave', handleMouseLeave);
-    };
-  }, []);
-
   const handleImageLoad = useCallback(() => {
     setLoaded(true);
     setError(false);
@@ -134,31 +92,9 @@ const ImageCard: React.FC<ImageCardProps> = ({ image, filter, quality, viewMode,
     return (
       <div
         ref={cardRef}
-        className="flex gap-3 sm:gap-4 p-3 sm:p-4 bg-zinc-900/20 border border-zinc-800/30 rounded-lg hover:bg-zinc-900/40 transition-all relative overflow-hidden"
-        style={{
-          '--card-mouse-x': '0px',
-          '--card-mouse-y': '0px'
-        } as React.CSSProperties}
+        className="flex gap-3 sm:gap-4 p-3 sm:p-4 bg-zinc-900/20 border border-zinc-800/30 rounded-lg hover:bg-zinc-900/40 transition-all"
       >
-        {/* Enhanced List View Chroma Effect */}
-        <div 
-          className="absolute inset-0 opacity-0 group-hover:opacity-50 transition-all duration-300 pointer-events-none mix-blend-screen"
-          style={{
-            background: `
-              radial-gradient(120px circle at var(--card-mouse-x) var(--card-mouse-y), rgba(255, 255, 255, 0.3), transparent 40%),
-              radial-gradient(180px circle at var(--card-mouse-x) var(--card-mouse-y), rgba(59, 130, 246, 0.2), transparent 50%)
-            `
-          }}
-        />
-        
-        <div 
-          className="absolute inset-0 opacity-0 group-hover:opacity-30 transition-all duration-500 pointer-events-none mix-blend-overlay"
-          style={{
-            background: `radial-gradient(100px circle at var(--card-mouse-x) var(--card-mouse-y), rgba(168, 85, 247, 0.25), transparent 50%)`
-          }}
-        />
-        
-        <div className="w-16 h-16 sm:w-20 sm:h-20 bg-zinc-800 rounded-md overflow-hidden flex-shrink-0 relative z-10">
+        <div className="w-16 h-16 sm:w-20 sm:h-20 bg-zinc-800 rounded-md overflow-hidden flex-shrink-0">
           {!isVisible && (
             <div className="w-full h-full bg-zinc-800 animate-pulse"></div>
           )}
@@ -194,7 +130,7 @@ const ImageCard: React.FC<ImageCardProps> = ({ image, filter, quality, viewMode,
           )}
         </div>
         
-        <div className="flex-1 min-w-0 relative z-10">
+        <div className="flex-1 min-w-0">
           <h3 className="font-medium text-zinc-100 mb-1 text-sm sm:text-base">{image.title}</h3>
           <p className="text-xs sm:text-sm text-zinc-500 capitalize mb-2">{image.category}</p>
           <div className="flex items-center gap-3 sm:gap-4 text-xs text-zinc-600">
@@ -208,7 +144,7 @@ const ImageCard: React.FC<ImageCardProps> = ({ image, filter, quality, viewMode,
           </div>
         </div>
         
-        <div className="flex items-center gap-2 relative z-10">
+        <div className="flex items-center gap-2">
           <button
             onClick={() => setLiked(!liked)}
             className={`p-2 rounded-md transition-colors ${
@@ -225,35 +161,8 @@ const ImageCard: React.FC<ImageCardProps> = ({ image, filter, quality, viewMode,
   return (
     <div
       ref={cardRef}
-      className="group bg-zinc-900/20 border border-zinc-800/30 rounded-lg overflow-hidden hover:border-zinc-700/50 transition-all relative"
-      style={{
-        '--card-mouse-x': '0px',
-        '--card-mouse-y': '0px'
-      } as React.CSSProperties}
+      className="group bg-zinc-900/20 border border-zinc-800/30 rounded-lg overflow-hidden hover:border-zinc-700/50 hover:scale-105 transition-all"
     >
-      {/* Card chroma effect */}
-      <div 
-        className="absolute inset-0 opacity-0 group-hover:opacity-60 transition-all duration-300 pointer-events-none z-10 mix-blend-screen"
-        style={{
-          background: `
-            radial-gradient(100px circle at var(--card-mouse-x) var(--card-mouse-y), rgba(255, 255, 255, 0.4), transparent 40%),
-            radial-gradient(150px circle at var(--card-mouse-x) var(--card-mouse-y), rgba(59, 130, 246, 0.3), transparent 50%),
-            radial-gradient(200px circle at var(--card-mouse-x) var(--card-mouse-y), rgba(168, 85, 247, 0.2), transparent 60%)
-          `
-        }}
-      />
-      
-      {/* Secondary card chroma layer */}
-      <div 
-        className="absolute inset-0 opacity-0 group-hover:opacity-40 transition-all duration-500 pointer-events-none z-9 mix-blend-overlay"
-        style={{
-          background: `
-            radial-gradient(80px circle at var(--card-mouse-x) var(--card-mouse-y), rgba(34, 197, 94, 0.3), transparent 40%),
-            radial-gradient(120px circle at var(--card-mouse-x) var(--card-mouse-y), rgba(239, 68, 68, 0.2), transparent 50%)
-          `
-        }}
-      />
-      
       <div className="relative aspect-square bg-zinc-800">
         {/* Loading placeholder */}
         {!isVisible && (
@@ -308,7 +217,7 @@ const ImageCard: React.FC<ImageCardProps> = ({ image, filter, quality, viewMode,
         
         {/* Hover overlay */}
         {loaded && (
-          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100 z-20">
+          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
             <div className="flex gap-2">
               <button className="bg-zinc-900/80 backdrop-blur-sm text-zinc-100 p-2 rounded-md hover:bg-zinc-800/80 transition-colors">
                 <Maximize2 className="w-4 h-4" />
@@ -328,7 +237,7 @@ const ImageCard: React.FC<ImageCardProps> = ({ image, filter, quality, viewMode,
         )}
         
         {/* Status badges */}
-        <div className="absolute top-2 right-2 flex flex-col gap-1 z-20">
+        <div className="absolute top-2 right-2 flex flex-col gap-1">
           {filter !== 'none' && (
             <div className="bg-zinc-900/80 backdrop-blur-sm text-zinc-100 px-2 py-1 rounded text-xs flex items-center gap-1">
               <Palette className="w-3 h-3" />
@@ -338,7 +247,7 @@ const ImageCard: React.FC<ImageCardProps> = ({ image, filter, quality, viewMode,
         </div>
         
         {/* Quality indicator */}
-        <div className="absolute bottom-2 left-2 z-20">
+        <div className="absolute bottom-2 left-2">
           <div className={`px-2 py-1 rounded text-xs font-medium backdrop-blur-sm ${
             quality === 'high' ? 'bg-green-500/20 text-green-400 border border-green-500/30' :
             quality === 'medium' ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30' :
@@ -350,7 +259,7 @@ const ImageCard: React.FC<ImageCardProps> = ({ image, filter, quality, viewMode,
       </div>
       
       {/* Image info */}
-      <div className="p-3 relative z-10">
+      <div className="p-3">
         <h3 className="font-medium text-zinc-100 text-sm mb-1 truncate">{image.title}</h3>
         <div className="flex items-center justify-between text-xs text-zinc-500">
           <span className="capitalize">{image.category}</span>
