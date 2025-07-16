@@ -75,8 +75,8 @@ const ImageCard: React.FC<ImageCardProps> = ({ image, filter, quality, viewMode,
 
     const handleMouseEnter = () => {
       gsap.to(card, { 
-        scale: 1.02, 
-        duration: 0.3, 
+        scale: 1.05, 
+        duration: 0.2, 
         ease: 'power2.out' 
       });
     };
@@ -84,7 +84,7 @@ const ImageCard: React.FC<ImageCardProps> = ({ image, filter, quality, viewMode,
     const handleMouseLeave = () => {
       gsap.to(card, { 
         scale: 1, 
-        duration: 0.3, 
+        duration: 0.4, 
         ease: 'power2.out' 
       });
     };
@@ -140,11 +140,21 @@ const ImageCard: React.FC<ImageCardProps> = ({ image, filter, quality, viewMode,
           '--card-mouse-y': '0px'
         } as React.CSSProperties}
       >
-        {/* Card chroma effect */}
+        {/* Enhanced List View Chroma Effect */}
         <div 
-          className="absolute inset-0 opacity-0 hover:opacity-20 transition-opacity pointer-events-none"
+          className="absolute inset-0 opacity-0 group-hover:opacity-50 transition-all duration-300 pointer-events-none mix-blend-screen"
           style={{
-            background: `radial-gradient(150px circle at var(--card-mouse-x) var(--card-mouse-y), rgba(255, 255, 255, 0.1), transparent 50%)`
+            background: `
+              radial-gradient(120px circle at var(--card-mouse-x) var(--card-mouse-y), rgba(255, 255, 255, 0.3), transparent 40%),
+              radial-gradient(180px circle at var(--card-mouse-x) var(--card-mouse-y), rgba(59, 130, 246, 0.2), transparent 50%)
+            `
+          }}
+        />
+        
+        <div 
+          className="absolute inset-0 opacity-0 group-hover:opacity-30 transition-all duration-500 pointer-events-none mix-blend-overlay"
+          style={{
+            background: `radial-gradient(100px circle at var(--card-mouse-x) var(--card-mouse-y), rgba(168, 85, 247, 0.25), transparent 50%)`
           }}
         />
         
@@ -223,9 +233,24 @@ const ImageCard: React.FC<ImageCardProps> = ({ image, filter, quality, viewMode,
     >
       {/* Card chroma effect */}
       <div 
-        className="absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity pointer-events-none z-10"
+        className="absolute inset-0 opacity-0 group-hover:opacity-60 transition-all duration-300 pointer-events-none z-10 mix-blend-screen"
         style={{
-          background: `radial-gradient(200px circle at var(--card-mouse-x) var(--card-mouse-y), rgba(255, 255, 255, 0.1), transparent 50%)`
+          background: `
+            radial-gradient(100px circle at var(--card-mouse-x) var(--card-mouse-y), rgba(255, 255, 255, 0.4), transparent 40%),
+            radial-gradient(150px circle at var(--card-mouse-x) var(--card-mouse-y), rgba(59, 130, 246, 0.3), transparent 50%),
+            radial-gradient(200px circle at var(--card-mouse-x) var(--card-mouse-y), rgba(168, 85, 247, 0.2), transparent 60%)
+          `
+        }}
+      />
+      
+      {/* Secondary card chroma layer */}
+      <div 
+        className="absolute inset-0 opacity-0 group-hover:opacity-40 transition-all duration-500 pointer-events-none z-9 mix-blend-overlay"
+        style={{
+          background: `
+            radial-gradient(80px circle at var(--card-mouse-x) var(--card-mouse-y), rgba(34, 197, 94, 0.3), transparent 40%),
+            radial-gradient(120px circle at var(--card-mouse-x) var(--card-mouse-y), rgba(239, 68, 68, 0.2), transparent 50%)
+          `
         }}
       />
       

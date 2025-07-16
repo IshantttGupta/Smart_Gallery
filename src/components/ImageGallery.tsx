@@ -75,12 +75,12 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ filter, networkInfo, viewMo
       gallery.style.setProperty('--mouse-x', `${mouseX}px`);
       gallery.style.setProperty('--mouse-y', `${mouseY}px`);
       
-      // Animate overlay opacity
-      gsap.to(overlay, { opacity: 0.1, duration: 0.3 });
+      // Enhanced chroma overlay with higher intensity
+      gsap.to(overlay, { opacity: 0.4, duration: 0.2 });
     };
 
     const handleMouseLeave = () => {
-      gsap.to(overlay, { opacity: 0, duration: 0.6 });
+      gsap.to(overlay, { opacity: 0, duration: 0.8 });
     };
 
     gallery.addEventListener('mousemove', handleMouseMove);
@@ -197,9 +197,22 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ filter, networkInfo, viewMo
         {/* Chroma Overlay */}
         <div 
           ref={overlayRef}
-          className="fixed inset-0 pointer-events-none z-10 opacity-0"
+          className="fixed inset-0 pointer-events-none z-10 opacity-0 mix-blend-screen"
           style={{
-            background: `radial-gradient(300px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.05), transparent 50%)`
+            background: `
+              radial-gradient(200px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.3), transparent 40%),
+              radial-gradient(400px circle at var(--mouse-x) var(--mouse-y), rgba(59, 130, 246, 0.15), transparent 60%),
+              radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(168, 85, 247, 0.1), transparent 70%)
+            `
+          }}
+        />
+        
+        {/* Secondary chroma layer for enhanced effect */}
+        <div 
+          className="fixed inset-0 pointer-events-none z-9 opacity-0 mix-blend-overlay"
+          style={{
+            background: `radial-gradient(150px circle at var(--mouse-x) var(--mouse-y), rgba(34, 197, 94, 0.2), transparent 50%)`,
+            animation: 'pulse 2s ease-in-out infinite alternate'
           }}
         />
         
